@@ -2,17 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import styles from './styles';
 
-function Login() {
+function Login({ handleGoToRegister, handleLogin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    function handleLogin () {
-        console.log(email, password);
-    }
-
-    function handleGoToRegister () {
-        console.log("Let's sign up!")
-    }
 
     return (<>
         <View style={styles.container}>
