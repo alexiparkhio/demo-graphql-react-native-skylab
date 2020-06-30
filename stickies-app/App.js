@@ -5,11 +5,12 @@ import {
   Login,
   Register,
   Landing,
-  NavBar
+  NavBar,
+  AddSticky
 } from './src/components';
 
 export default function App() {
-  const [screen, setScreen] = useState('login');
+  const [screen, setScreen] = useState('add-sticky');
   const [user, setUser] = useState({ name: 'Pepito', surname: 'Grillo', email: 'pepigri@gmail.com' });
   const [navBar, setNavBar] = useState(false);
 
@@ -17,29 +18,22 @@ export default function App() {
     if (screen === 'landing') setNavBar(true);
   }, [])
 
-  const goToLogin = () => {
-    setScreen('login');
-    setNavBar(false);
-  }
+  const screenHandler = screenToSwitch => {
+    if (screenToSwitch === 'landing') setNavBar(true);
+    else setNavBar(false);
 
-  const goToRegister = () => {
-    setScreen('register');
-    setNavBar(false);
-  }
-
-  const goToLanding = () => {
-    setNavBar(true);
-    setScreen('landing');
+    setScreen(screenToSwitch);
   }
 
   return (<>
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <StatusBar style="auto" />
-        {screen === 'login' && <Login handleGoToRegister={goToRegister} handleLogin={goToLanding}/>}
-        {screen === 'register' && <Register handleGoToLogin={goToLogin} />}
+        {screen === 'login' && <Login navigation={screenHandler} />}
+        {screen === 'register' && <Register navigation={screenHandler} />}
         {screen === 'landing' && <Landing user={user} />}
-        {navBar && <NavBar handleGoToLogin={goToLogin} handleGoToRegister={goToRegister} />}
+        {screen === 'add-sticky' && <AddSticky user={user} navigation={screenHandler} />}
+        {navBar && <NavBar navigation={screenHandler} />}
       </View>
     </SafeAreaView>
   </>);

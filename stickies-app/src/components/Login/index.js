@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
+import { Header, Container } from '../commons';
 import styles from './styles';
 
-function Login({ handleGoToRegister, handleLogin }) {
+function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     return (<>
-        <View style={styles.container}>
+        <Container>
             <View style={styles.boxContainer}>
-                <Text style={styles.header}>Login</Text>
+                <Header title="Login" />
                 <TextInput
                     style={styles.textInput}
                     placeholder="example@mail.com"
@@ -23,12 +24,11 @@ function Login({ handleGoToRegister, handleLogin }) {
                 />
 
                 <View style={styles.buttonsContainer}>
-                    <Button style={styles.buttonPadding} title="Submit" onPress={() => handleLogin()} />
-                    <Text onPress={() => handleGoToRegister()} style={styles.buttonPadding}>Not registered? Sign up!</Text>
+                    <Button style={styles.buttonPadding} title="Submit" onPress={() => navigation('landing')} />
+                    <Text onPress={() => navigation('register')} style={styles.buttonPadding}>Not registered? Sign up!</Text>
                 </View>
             </View>
-
-        </View>
+        </Container>
     </>)
 }
 

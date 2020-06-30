@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
+import { Header, Container } from '../commons';
 import styles from './styles';
 
-function Register({ handleGoToLogin }) {
+function Register({ navigation }) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    function handleRegister () {
+    function handleRegister() {
         console.log(name, surname, email, password);
     }
 
     return (<>
-        <View style={styles.container}>
+        <Container>
             <View style={styles.boxContainer}>
-                <Text style={styles.header}>Register</Text>
+                <Header title="Register" />
                 <TextInput
                     style={styles.textInput}
                     placeholder="Insert your name"
@@ -40,11 +41,10 @@ function Register({ handleGoToLogin }) {
 
                 <View style={styles.buttonsContainer}>
                     <Button style={styles.buttonPadding} title="Submit" onPress={() => handleRegister()} />
-                    <Text onPress={() => handleGoToLogin()} style={styles.buttonPadding}>Already a member? Sign in!</Text>
+                    <Text onPress={() => navigation('login')} style={styles.buttonPadding}>Already a member? Sign in!</Text>
                 </View>
             </View>
-
-        </View>
+        </Container>
     </>)
 }
 

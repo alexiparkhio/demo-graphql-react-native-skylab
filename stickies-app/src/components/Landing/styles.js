@@ -1,15 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
-        height: '88%',
-        alignItems: 'center',
-    },
     header: {
-        fontWeight: 'bold',
-        fontSize: 45,
-        textAlign: 'center',
-        color: '#e9c46a',
         borderColor: 'plum',
         borderWidth: 10,
         borderStyle: 'dashed',
