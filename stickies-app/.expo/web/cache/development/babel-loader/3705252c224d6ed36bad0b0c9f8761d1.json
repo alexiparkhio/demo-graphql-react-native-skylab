@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Landing from \"./Landing\";\nexport { Landing };","map":{"version":3,"sources":["C:/Users/Alex/Desktop/demo-graphql-rn/stickies-app/src/components/index.js"],"names":["Landing"],"mappings":"AAAA,OAAOA,OAAP;AAEA,SACIA,OADJ","sourcesContent":["import Landing from './Landing';\r\n\r\nexport {\r\n    Landing,\r\n}"]},"metadata":{},"sourceType":"module"}
