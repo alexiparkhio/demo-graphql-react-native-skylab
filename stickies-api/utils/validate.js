@@ -22,22 +22,5 @@ module.exports = {
 				throw new TypeError(`${name} ${target} is not a ${type}`);
 		} else if (!(target instanceof type))
 			throw new TypeError(`${name} ${target} is not a ${type.name}`);
-	},
-
-	jwt(token) {
-		this.type(token, 'token', String);
-
-		const parts = token.split('.');
-
-		if (parts.length !== 3) throw new ContentError('invalid token');
-
-		const [header, payload, signature] = parts;
-
-		if (
-			!header.trim().length ||
-			!payload.trim().length ||
-			!signature.trim().length
-		)
-			throw new ContentError('invalid token');
-	},
+	}
 };
