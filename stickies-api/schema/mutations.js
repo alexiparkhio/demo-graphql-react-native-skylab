@@ -6,7 +6,7 @@ const {
     GraphQLString,
     GraphQLNonNull
 } = require('graphql');
-const { registerUser, authenticateUser } = require('../resolvers');
+const { registerUser, authenticateUser, addSticky } = require('../resolvers');
 const jwt = require('jsonwebtoken');
 
 module.exports = new GraphQLObjectType({
@@ -38,6 +38,19 @@ module.exports = new GraphQLObjectType({
                 const token = jwt.sign({ sub: id }, SECRET, { expiresIn: '1d' });
 
                 return { token };
+            }
+        },
+
+        addSticky: {
+            type: GraphQLBoolean,
+            args: {
+                message: { type: GraphQLNonNull(GraphQLString) },
+                created: { type: GraphQLString }
+            },
+            resolve: async (_, { message, created }, { request: { tokenId: userId } }) => {
+                await addSticky(userId, message, created);
+
+                return true;
             }
         }
     }

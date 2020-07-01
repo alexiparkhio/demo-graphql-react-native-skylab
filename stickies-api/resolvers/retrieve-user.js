@@ -9,8 +9,10 @@ module.exports = userId => {
         const user = await User.findById(userId).lean();
         if (!user) throw new NotFoundError(`user with id ${userId} does not exist`);
 
-        const { name, surname, email } = user;
+        user.id = user._id.toString();
+        delete user._id;
+        delete user.__v;
 
-        return { name, surname, email };
+        return user
     })();
 }

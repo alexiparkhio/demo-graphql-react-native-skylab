@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for resolvers/authenticate-user.js</title>
+    <title>Code coverage report for resolvers/add-sticky.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">resolvers</a> authenticate-user.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">resolvers</a> add-sticky.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -75,44 +75,41 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { User } = require('stickies-data');
-const { NotFoundError, UnauthorizedError } = require('../errors');
-const { validate } = require('../utils');
-const bcrypt = require('bcryptjs');
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { validate } = require('../utils');
+const { Sticky, User } = require('stickies-data');
+const { NotFoundError } = require('../errors');
 &nbsp;
-module.exports = (email, password) =&gt; {
-    validate.string(email, 'email');
-    validate.email(email);
-    validate.string(password, 'password');
+module.exports = (userId, message, created) =&gt; {
+    validate.string(userId, 'userId');
+    validate.string(message, 'message');
+    validate.string(created, 'created');
 &nbsp;
-    return (async() =&gt; {
-        const user = await User.findOne({ email });
-        if (!user) throw new NotFoundError(`user with email ${email} does not exist`);
+    return (async () =&gt; {
+        const user = await User.findById(userId);
+        if (!user) throw new NotFoundError(`user with id ${userId} does not exist`);
 &nbsp;
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) throw new UnauthorizedError('wrong credentials');
+        const sticky = await Sticky.create({ author: userId, message, created });
+        await User.findByIdAndUpdate(userId, { $addToSet: { stickies: sticky.id } });
 &nbsp;
-        return user.id.toString();
+        return;
     })();
 }</pre></td></tr></table></pre>
 

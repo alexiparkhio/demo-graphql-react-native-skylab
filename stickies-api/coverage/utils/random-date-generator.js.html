@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for resolvers/authenticate-user.js</title>
+    <title>Code coverage report for utils/random-date-generator.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">resolvers</a> authenticate-user.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">utils</a> random-date-generator.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>14/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -73,47 +73,38 @@
 <a name='L14'></a><a href='#L14'>14</a>
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L17'></a><a href='#L17'>17</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { User } = require('stickies-data');
-const { NotFoundError, UnauthorizedError } = require('../errors');
-const { validate } = require('../utils');
-const bcrypt = require('bcryptjs');
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { floor, random } = Math;
 &nbsp;
-module.exports = (email, password) =&gt; {
-    validate.string(email, 'email');
-    validate.email(email);
-    validate.string(password, 'password');
+module.exports = () =&gt; {
+    let day, month, year, hour, minutes;
+    day = `${floor(random() * 30)+ 1}`;
+    month = `${floor(random() * 11)+ 1}`;
+    year = `${1900 + floor(random() * 120)}`;
+    hour = `${floor(random() * 23)}`;
+    minutes = `${floor(random() * 59)}`;
 &nbsp;
-    return (async() =&gt; {
-        const user = await User.findOne({ email });
-        if (!user) throw new NotFoundError(`user with email ${email} does not exist`);
-&nbsp;
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) throw new UnauthorizedError('wrong credentials');
-&nbsp;
-        return user.id.toString();
-    })();
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (day.length === 1) <span class="cstat-no" title="statement not covered" >day = `0${day}`;</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (month.length === 1) month = `0${month}`;
+    if (hour.length === 1) hour = `0${hour}`;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (minutes.length === 1) <span class="cstat-no" title="statement not covered" >minutes = `0${minutes}`;</span>
+    
+    return `${day}-${month}-${year}, ${hour}:${minutes}`;
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
