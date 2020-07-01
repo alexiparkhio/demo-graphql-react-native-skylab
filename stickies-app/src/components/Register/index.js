@@ -3,15 +3,11 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { Header, Container } from '../commons';
 import styles from './styles';
 
-function Register({ navigation }) {
+function Register({ navigation, handleRegister }) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    function handleRegister() {
-        console.log(name, surname, email, password);
-    }
 
     return (<>
         <Container>
@@ -40,7 +36,7 @@ function Register({ navigation }) {
                 />
 
                 <View style={styles.buttonsContainer}>
-                    <Button style={styles.buttonPadding} title="Submit" onPress={() => handleRegister()} />
+                    <Button style={styles.buttonPadding} title="Submit" onPress={() => handleRegister(name, surname, email, password)} />
                     <Text onPress={() => navigation('login')} style={styles.buttonPadding}>Already a member? Sign in!</Text>
                 </View>
             </View>
