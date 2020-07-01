@@ -1,10 +1,12 @@
 const {
     GraphQLObjectType,
-    GraphQLList
+    GraphQLList,
+    GraphQLString,
+    GraphQLScalarType
 } = require('graphql');
-const { UserType } = require('./types');
+const { UserType, StickyType } = require('./types');
 const { User } = require('stickies-data');
-const { retrieveUser } = require('../resolvers');
+const { retrieveUser, retrieveUsers, retrieveStickies } = require('../resolvers');
 
 module.exports = new GraphQLObjectType({
     name: 'RootQuery',
@@ -12,20 +14,30 @@ module.exports = new GraphQLObjectType({
         users: {
             type: GraphQLList(UserType),
             resolve: async () => {
-                const users = await User.find().lean();
-                users.forEach(user => {
-                    user.id = user._id.toString();
-                    delete user._id, delete user.__v;
-                })
-
-                return users;
+                return await retrieveUsers();
             }
         },
         user: {
             type: UserType,
-            resolve: async (_, __, { request: { tokenId: userId } }) => {
-                return await retrieveUser(userId);
+            args: {
+                id: { type: GraphQLString }
+            },
+            resolve: async (_, { id }, context) => {
+                if (id) return await retrieveUser(id)
+                else {
+                    const { request: { tokenId: userId } } = context;
+                    return await retrieveUser(userId)
+                };
             }
-        }
+        },
+        stickies: {
+            type: GraphQLList(StickyType),
+            args: {
+                id: { type: GraphQLString }
+            },
+            resolve: async (_, { id }, __) => {
+                return await retrieveStickies(id);
+            }
+        },
     }
 })

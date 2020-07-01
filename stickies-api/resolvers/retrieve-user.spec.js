@@ -35,7 +35,9 @@ describe('retrieveUser', () => {
         expect(user.name).to.equal(name);
         expect(user.surname).to.equal(surname);
         expect(user.email).to.equal(email);
-        expect(user.password).to.be.undefined;
+        expect(user.password).not.to.equal(password);
+        expect(user.stickies).to.exist;
+        expect(user.stickies).to.be.instanceof(Array);
     })
 
     it('should fail to retrieve the user if the user does not exist', async () => {
