@@ -6,7 +6,8 @@ import {
   Register,
   Landing,
   NavBar,
-  AddSticky
+  AddSticky,
+  Map
 } from './src/components';
 
 const logic = require('./stickies-client-logic');
@@ -41,7 +42,8 @@ export default function App() {
   }, []);
 
   const screenHandler = screenToSwitch => {
-    if (screenToSwitch === 'landing') setNavBar(true);
+    const SCREENS = ['landing', 'add.sticky', 'map'];
+    if (SCREENS.includes(screenToSwitch)) setNavBar(true);
     else setNavBar(false);
 
     setScreen(screenToSwitch);
@@ -107,6 +109,7 @@ export default function App() {
         {screen === 'register' && <Register navigation={screenHandler} handleRegister={handleRegister} />}
         {screen === 'landing' && <Landing user={user} stickies={stickies} />}
         {screen === 'add-sticky' && <AddSticky user={user} navigation={screenHandler} addStickyHandler={addStickyHandler} />}
+        {screen === 'map' && <Map user={user} navigation={screenHandler} />}
         {navBar && <NavBar navigation={screenHandler} onLogout={logoutHandler} />}
       </View>
     </SafeAreaView>

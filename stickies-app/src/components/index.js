@@ -4,6 +4,7 @@ import Landing from './Landing';
 import Sticky from './Sticky';
 import NavBar from './NavBar';
 import AddSticky from './AddSticky';
+import Map from './Map';
 
 export {
     Login,
@@ -11,5 +12,6 @@ export {
     Landing,
     Sticky,
     NavBar,
-    AddSticky
+    AddSticky,
+    Map
 }

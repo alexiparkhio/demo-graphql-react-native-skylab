@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 function NavBar({ navigation, onLogout }) {
@@ -17,6 +17,12 @@ function NavBar({ navigation, onLogout }) {
                 <View style={styles.button}>
                     <TouchableOpacity onPress={() => navigation('add-sticky')}>
                     <MaterialIcons name="note-add" size={48} color="#264653" />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.button}>
+                    <TouchableOpacity onPress={() => navigation('map')}>
+                    <MaterialCommunityIcons name="earth" size={48} color="#264653" />
                     </TouchableOpacity>
                 </View>
             </View>
