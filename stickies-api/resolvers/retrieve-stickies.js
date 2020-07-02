@@ -27,7 +27,9 @@ module.exports = userId => {
                 delete sticky._id, delete sticky.__v;
             });
 
-            return stickies;
+            return stickies.sort(function(a, b) { 
+                return Number(new Date(b.created)) - Number(new Date(a.created))
+            });
         })();
     }
 }

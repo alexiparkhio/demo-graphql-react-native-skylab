@@ -3,14 +3,10 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Header, Container, StickyContainer } from '../commons';
 import styles from './styles';
 import { Ionicons } from '@expo/vector-icons';
+import moment from 'moment';
 
-function AddSticky({ user: { name, surname }, navigation }) {
+function AddSticky({ user: { name, surname, email }, navigation, addStickyHandler }) {
     const [message, setMessage] = useState('');
-    const [sent, setSent] = useState(false);
-
-    function addStickyHandler() {
-        setSent(true);
-    }
 
     return (<>
         <Container>
@@ -24,11 +20,11 @@ function AddSticky({ user: { name, surname }, navigation }) {
                     onChangeText={input => setMessage(input)}
                 />
                 <View style={styles.separator}></View>
-                <Text>Sticky by {name} {surname}</Text>
+                <Text>Sticky by {name} {surname} ({email})</Text>
             </StickyContainer>
 
             <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.button} onPress={() => addStickyHandler()}>
+                <TouchableOpacity style={styles.button} onPress={() => addStickyHandler(message, moment(new Date()).format('DD-MM-YYYY, HH:mm'))}>
                     <Ionicons name="ios-add-circle" size={74} color="#f4a261" />
                     <Text style={{ color: '#f4a261', fontSize: 20 }}>Add</Text>
                 </TouchableOpacity>
@@ -38,15 +34,6 @@ function AddSticky({ user: { name, surname }, navigation }) {
                     <Text style={{ color: '#f4a261', fontSize: 20 }}>Discard changes</Text>
                 </TouchableOpacity>
             </View>
-
-            {sent && (<>
-                <StickyContainer style={{ width: '90%' }}>
-                    <Text>{message}</Text>
-                    <View style={styles.separator}></View>
-                    <Text>Sticky by {name} {surname}</Text>
-                    <Text>Published at {(new Date()).toString()}</Text>
-                </StickyContainer>
-            </>)}
 
             <TouchableOpacity onPress={() => navigation('landing')}>
                 <Ionicons name="ios-arrow-back" size={74} color="#f4a261" />

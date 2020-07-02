@@ -4,4 +4,5 @@ module.exports = {
     authenticateUser: require('./authenticate-user'),
     retrieveUser: require('./retrieve-user'),
     retrieveStickies: require('./retrieve-stickies'),
+    addSticky: require('./add-sticky'),
 }

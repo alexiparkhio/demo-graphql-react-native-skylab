@@ -24,7 +24,7 @@ function Login({ loginHandler, navigation }) {
                 />
 
                 <View style={styles.buttonsContainer}>
-                    <Button style={styles.buttonPadding} title="Submit" onPress={() => loginHandler(email, password)} />
+                    <Button style={styles.buttonPadding} title="Submit" onPress={() => loginHandler(email.trim().toLowerCase(), password.trim().toLowerCase())} />
                     <Text onPress={() => navigation('register')} style={styles.buttonPadding}>Not registered? Sign up!</Text>
                 </View>
             </View>

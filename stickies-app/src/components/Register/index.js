@@ -36,7 +36,7 @@ function Register({ navigation, handleRegister }) {
                 />
 
                 <View style={styles.buttonsContainer}>
-                    <Button style={styles.buttonPadding} title="Submit" onPress={() => handleRegister(name, surname, email, password)} />
+                    <Button style={styles.buttonPadding} title="Submit" onPress={() => handleRegister(name.trim().toLowerCase(), surname.trim().toLowerCase(), email.trim().toLowerCase(), password.trim().toLowerCase())} />
                     <Text onPress={() => navigation('login')} style={styles.buttonPadding}>Already a member? Sign in!</Text>
                 </View>
             </View>

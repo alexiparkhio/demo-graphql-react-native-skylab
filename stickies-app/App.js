@@ -10,7 +10,13 @@ import {
 } from './src/components';
 
 const logic = require('./stickies-client-logic');
-const { registerUser, authenticateUser, retrieveUser, retrieveStickies } = logic;
+const { 
+  registerUser, 
+  authenticateUser, 
+  retrieveUser, 
+  retrieveStickies, 
+  addSticky
+ } = logic;
 
 logic.context.API_URL = 'http://192.168.0.20:8080/graphql';
 logic.context.storage = AsyncStorage;
@@ -25,7 +31,7 @@ export default function App() {
 
   useEffect(() => {
     if (screen === 'landing') setNavBar(true);
-  }, [])
+  }, [screen])
 
   useEffect(() => {
     return retrieveStickies()
@@ -79,6 +85,20 @@ export default function App() {
     })()
   }
 
+  const addStickyHandler = (message, created) => {
+    try {
+      (async() => {
+        await addSticky(message, created);
+
+        const stickies = await retrieveStickies();
+        setStickies(stickies);
+        setScreen('landing');
+      })();
+    } catch({ message }) {
+      console.error(message);
+    }
+  }
+  
   return (<>
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -86,7 +106,7 @@ export default function App() {
         {screen === 'login' && <Login navigation={screenHandler} loginHandler={handleLogin} />}
         {screen === 'register' && <Register navigation={screenHandler} handleRegister={handleRegister} />}
         {screen === 'landing' && <Landing user={user} stickies={stickies} />}
-        {screen === 'add-sticky' && <AddSticky user={user} navigation={screenHandler} />}
+        {screen === 'add-sticky' && <AddSticky user={user} navigation={screenHandler} addStickyHandler={addStickyHandler} />}
         {navBar && <NavBar navigation={screenHandler} onLogout={logoutHandler} />}
       </View>
     </SafeAreaView>
