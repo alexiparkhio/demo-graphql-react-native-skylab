@@ -21,6 +21,7 @@ module.exports = new GraphQLObjectType({
                 password: { type: GraphQLNonNull(GraphQLString) }
             },
             resolve: async (_, { name, surname, email, password }) => {
+                console.log('jorge, menudos nitales');
                 await registerUser(name, surname, email, password);
 
                 return true;

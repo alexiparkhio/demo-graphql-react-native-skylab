@@ -4,12 +4,12 @@ import styles from './styles';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 
-function NavBar({ navigation }) {
+function NavBar({ navigation, onLogout }) {
     return (<>
         <View style={styles.container}>
             <View style={styles.buttonsContainer}>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={() => navigation('login')}>
+                    <TouchableOpacity onPress={() => onLogout()}>
                         <AntDesign name="login" size={48} color="#264653" />
                     </TouchableOpacity>
                 </View>

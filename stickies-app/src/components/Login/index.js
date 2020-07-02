@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { Header, Container } from '../commons';
 import styles from './styles';
 
-function Login({ navigation }) {
+function Login({ loginHandler, navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -24,7 +24,7 @@ function Login({ navigation }) {
                 />
 
                 <View style={styles.buttonsContainer}>
-                    <Button style={styles.buttonPadding} title="Submit" onPress={() => navigation('landing')} />
+                    <Button style={styles.buttonPadding} title="Submit" onPress={() => loginHandler(email, password)} />
                     <Text onPress={() => navigation('register')} style={styles.buttonPadding}>Not registered? Sign up!</Text>
                 </View>
             </View>

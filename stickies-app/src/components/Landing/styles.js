@@ -22,7 +22,12 @@ const styles = StyleSheet.create({
     circle: {
         width: 200,
         height: 200,
-        borderRadius: '50%'
+        borderRadius: 200
+    },
+    noStickiesText: {
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#f4a261'
     }
 });
 

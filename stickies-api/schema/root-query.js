@@ -36,7 +36,8 @@ module.exports = new GraphQLObjectType({
                 id: { type: GraphQLString }
             },
             resolve: async (_, { id }, __) => {
-                return await retrieveStickies(id);
+                if (id) return await retrieveStickies(id)
+                else return await retrieveStickies();
             }
         },
     }
