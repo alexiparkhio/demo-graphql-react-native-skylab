@@ -1,0 +1,35 @@
+{
+  "name": "stickies-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx mocha resolvers",
+    "test:debug": "npx mocha debug resolvers",
+    "test:coverage": "npx nyc --reporter=html --reporter=text mocha resolvers utils",
+    "start": "node .",
+    "watch": "npx nodemon .",
+    "debug": "node debug ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "atob": "^2.1.2",
+    "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
+    "mocha": "^8.0.1",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.1.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^15.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "stickies-data": "file:../stickies-data"
+  }
+}
